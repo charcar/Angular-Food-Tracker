@@ -1,0 +1,23 @@
+{
+  "name": "to-do-list",
+  "description": "",
+  "main": "",
+  "authors": [
+    "charles carter"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "moment": "^2.12.0"
+  }
+}
