@@ -2,32 +2,29 @@ import { Component, EventEmitter } from 'angular2/core';
 import { Meal } from './meal.model';
 import { NewMealComponent } from './new-meal.component';
 import { MealComponent } from './meal.component';
+import { CaloriePipe } from './calorie.pipe';
 import { EditMealDetailsComponent } from './edit-meal-details.component';
-import { CaloriesPipe } from './calories.pipe';
 
 
 @Component({
   selector: 'meal-list',
   inputs: ['mealList'],
-  pipes: [CaloriesPipe],
+  pipes: [CaloriePipe],
   directives: [MealComponent, EditMealDetailsComponent, NewMealComponent],
   template: `
-
-  <select (change)="onChange($event.target.value)" class="form-control" id="dropdown">
-    <option value="All Meals" selected="selected">All Meals</option>
-    <option value="Healthy Meals">Healthy Meals</option>
-    <option value="Unhealthy Meals">Unhealthy Meals</option>
+  <select class="calories" (change)="onChange($event.target.value)">
+    <option value="all">Show All Meals</option>
+    <option value="healthy">Healthy Meals</option>
+    <option value="unhealthy">Unhealthy Meals</option>
   </select>
-
-  <div *ngFor="#currentMeal of mealList | calories: filterCalories"
-  <h3 class="mealListItem"
-     (click)="mealClicked(currentMeal)">&lowast;
-     {{ currentMeal.name }} >
-   </h3>
-   <meal-display *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal"></meal-display>
-   <edit-meal *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal" (onUpdateCalories)="updateCalCount($event)"></edit-meal>
-   <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
- </div>
+  <meal-display *ngFor="#currentMeal of mealList | calorie:filterCalorie"
+    (click)="mealClicked(currentMeal)"
+    [class.selected]="currentMeal === selectedMeal"
+    [meal]="currentMeal">
+    </meal-display>
+    <edit-meal-details *ngIf="selectedMeal" [meal]="selectedMeal">
+    </edit-meal-details>
+    <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
   `
 
 })
@@ -35,7 +32,7 @@ export class MealListComponent {
   public mealList: Meal[];
   public selectedMeal: Meal;
   public onMealSelect: EventEmitter<Meal>;
-  public filterCalories: string = "All Meals";
+  public filterCalories: string = "all";
   constructor() {}
   mealClicked(clickedMeal: Meal): void {
     if(this.selectedMeal === clickedMeal) {
