@@ -23,8 +23,11 @@ export class AppComponent {
       new Meal("Poutine", "canada's contribution to american obesity", 2300, 0),
       new Meal("Cheese Curds", "a disgusting tradition from a fascinating place, wisconsin", 1200, 1),
       new Meal("Celery", "watery, crunchy, cud-inspiring", 12, 2),
-      new Meal("Radicchio", "the 'blood cabbage', I tried a leaf", 60, 3)
+      new Meal("Radicchio", "'blood cabbage'", 60, 3)
     ];
+  }
+  mealWasSelected(clickedMeal: Meal): void {
+
   }
 
 }
