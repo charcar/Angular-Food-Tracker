@@ -3,36 +3,38 @@ import { Meal } from './meal.model';
 import { NewMealComponent } from './new-meal.component';
 import { MealComponent } from './meal.component';
 import { EditMealDetailsComponent } from './edit-meal-details.component';
-import { CaloriePipe } from './calorie.pipe';
+import { CaloriesPipe } from './calories.pipe';
 
 
 @Component({
   selector: 'meal-list',
   inputs: ['mealList'],
+  pipes: [CaloriesPipe],
   directives: [MealComponent, EditMealDetailsComponent, NewMealComponent],
   template: `
+
   <select (change)="onChange($event.target.value)" class="form-control" id="dropdown">
     <option value="All Meals" selected="selected">All Meals</option>
     <option value="Healthy Meals">Healthy Meals</option>
     <option value="Unhealthy Meals">Unhealthy Meals</option>
-</select>
+  </select>
 
-  <div *ngFor="#currentMeal of mealList | calories:filterCalories">
+  <div *ngFor="#currentMeal of mealList | calories: filterCalories"
   <h3 class="mealListItem"
      (click)="mealClicked(currentMeal)">&lowast;
-     {{ currentMeal.name }}
+     {{ currentMeal.name }} >
    </h3>
    <meal-display *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal"></meal-display>
    <edit-meal *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal" (onUpdateCalories)="updateCalCount($event)"></edit-meal>
+   <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
  </div>
   `
-
 
 })
 export class MealListComponent {
   public mealList: Meal[];
   public selectedMeal: Meal;
-  // public onMealSelect: EventEmitter<Meal>;
+  public onMealSelect: EventEmitter<Meal>;
   public filterCalories: string = "All Meals";
   constructor() {}
   mealClicked(clickedMeal: Meal): void {
