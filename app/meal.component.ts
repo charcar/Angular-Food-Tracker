@@ -7,9 +7,10 @@ import { Meal } from './meal.model';
     template:`
     <div class="mealItem">
     <h3>{{meal.name}}</h3>
-    <div class="">
+
+    <div class="mealDetails">
     </div>
-  </div>
+    </div>
     `
   })
   export class MealComponent {
