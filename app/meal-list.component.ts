@@ -3,6 +3,7 @@ import { Meal } from './meal.model';
 import { NewMealComponent } from './new-meal.component';
 import { MealComponent } from './meal.component';
 import { EditMealDetailsComponent } from './edit-meal-details.component';
+import { CaloriePipe } from './calorie.pipe';
 
 
 @Component({
@@ -10,41 +11,43 @@ import { EditMealDetailsComponent } from './edit-meal-details.component';
   inputs: ['mealList'],
   directives: [MealComponent, EditMealDetailsComponent, NewMealComponent],
   template: `
-  <meal-display *ngFor="#currentMeal of mealList"
-     (click)="mealClicked(currentMeal)"
-     [class.selected]="currentMeal === selectedMeal"
-     [meal] = "currentMeal">
-    </meal-display>
-    <edit-meal-details *ngIf="selectedMeal" [meal]="selectedMeal">
-    </edit-meal-details>
-    <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
-  `
+  <select (change)="onChange($event.target.value)" class="form-control" id="dropdown">
+    <option value="All Meals" selected="selected">All Meals</option>
+    <option value="Healthy Meals">Healthy Meals</option>
+    <option value="Unhealthy Meals">Unhealthy Meals</option>
+</select>
 
-//   <div *ngFor="#currentFood of foodList | calories: filterCalories">
-//   <h3 class="foodListItem"
-//     (click)="foodClicked(currentFood)">&lowast;
-//     {{ currentFood.name }}
-//   </h3>
-//   <food-display *ngIf="currentFood === selectedFood" [food] = "currentFood"></food-display>
-//   <edit-food *ngIf="currentFood === selectedFood" [food] = "currentFood" (onUpdateCalories)="updateCalCount($event)"></edit-food>
-// </div>
+  <div *ngFor="#currentMeal of mealList | calories:filterCalories">
+  <h3 class="mealListItem"
+     (click)="mealClicked(currentMeal)">&lowast;
+     {{ currentMeal.name }}
+   </h3>
+   <meal-display *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal"></meal-display>
+   <edit-meal *ngIf="currentMeal === selectedMeal" [meal] = "currentMeal" (onUpdateCalories)="updateCalCount($event)"></edit-meal>
+ </div>
+  `
 
 
 })
 export class MealListComponent {
   public mealList: Meal[];
-  public onMealSelect: EventEmitter<Meal>;
   public selectedMeal: Meal;
-  constructor() {
-    this.onMealSelect = new EventEmitter();
-  }
+  // public onMealSelect: EventEmitter<Meal>;
+  public filterCalories: string = "All Meals";
+  constructor() {}
   mealClicked(clickedMeal: Meal): void {
-    this.selectedMeal = clickedMeal;
-    this.onMealSelect.emit(clickedMeal);
+    if(this.selectedMeal === clickedMeal) {
+      this.selectedMeal = undefined;
+    } else {
+      this.selectedMeal = clickedMeal;
+    }
   }
   createMeal(mealArray: Array<any>): void {
     this.mealList.push(
       new Meal(mealArray[0], mealArray[1], mealArray[2], this.mealList.length
     ));
+  }
+  onChange(filterOption) {
+    this.filterCalories = filterOption;
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from 'angular2/core';
+import { Component, EventEmitter } from 'angular2/core';
 import { Meal } from './meal.model';
 
   @Component({
@@ -7,7 +7,7 @@ import { Meal } from './meal.model';
     template:`
   <h3>{{ meal.name }}</h3>
   <h4>{{ meal.description }}</h4>
-  
+
 
     `
   })
