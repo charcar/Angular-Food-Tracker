@@ -7,17 +7,17 @@ import { EditMealDetailsComponent } from './edit-meal-details.component';
 
 @Component({
   selector: 'meal-list',
-  inputs: '[mealList]',
-  outputs: '[onMealSelect]',
-
+  inputs: ['mealList'],
   directives: [MealComponent, EditMealDetailsComponent, NewMealComponent],
   template: `
   <meal-display *ngFor="#currentMeal of mealList"
-    (click)="mealClicked(currentMeal)"
-    [class.selected]="currentMeal === selectedMeal"
-    [meal] = "currentMeal">
-  </meal-display>
-  <edit-meal-details [meal]="selectedMeal"></edit-meal-details>
+     (click)="mealClicked(currentMeal)"
+     [class.selected]="currentMeal === selectedMeal"
+     [meal] = "currentMeal">
+    </meal-display>
+    <edit-meal-details *ngIf="selectedMeal" [meal]="selectedMeal">
+    </edit-meal-details>
+    <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
   `
 })
 export class MealListComponent {
@@ -33,7 +33,7 @@ export class MealListComponent {
   }
   createMeal(mealArray: Array<any>): void {
     this.mealList.push(
-      new Meal(mealArray[0], mealArray[1], mealArray[2], this.mealArray.length)
-    );
+      new Meal(mealArray[0], mealArray[1], mealArray[2], this.mealList.length
+    ));
   }
 }

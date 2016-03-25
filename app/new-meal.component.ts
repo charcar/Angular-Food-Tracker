@@ -2,7 +2,7 @@ import { Component, EventEmitter } from 'angular2/core';
 import { Meal } from './meal.model';
 
 @Component({
-  selector: 'new-keg',
+  selector: 'new-meal',
   outputs: ['onSubmitNewMeal'],
   template: `
     <div class="meal-form">
@@ -10,7 +10,7 @@ import { Meal } from './meal.model';
       <input placeholder="Name" class="col-sm-8 input-lg" #newName>
       <input placeholder="Description" class="col-sm-8 input-lg" #newDescription>
       <input placeholder="Calories" class="col-sm-8 input-lg" #newCalories>
-      <button (click)="addMeal(newName, newDescription, newCalories)"
+      <button (click)="addMeal(newName, newDescription, newCalories)" class="btn btn-default" id="mealBtn">Add Meal</button>
     </div>
   `
 })
