@@ -19,6 +19,17 @@ import { EditMealDetailsComponent } from './edit-meal-details.component';
     </edit-meal-details>
     <new-meal (onSubmitNewMeal)="createMeal($event)"></new-meal>
   `
+
+//   <div *ngFor="#currentFood of foodList | calories: filterCalories">
+//   <h3 class="foodListItem"
+//     (click)="foodClicked(currentFood)">&lowast;
+//     {{ currentFood.name }}
+//   </h3>
+//   <food-display *ngIf="currentFood === selectedFood" [food] = "currentFood"></food-display>
+//   <edit-food *ngIf="currentFood === selectedFood" [food] = "currentFood" (onUpdateCalories)="updateCalCount($event)"></edit-food>
+// </div>
+
+
 })
 export class MealListComponent {
   public mealList: Meal[];
