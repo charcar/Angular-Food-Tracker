@@ -5,14 +5,17 @@ import { Meal } from './meal.model';
       selector: 'meal-display',
       inputs: ['meal'],
     template:`
-    <div class="mealItem">
-    <h3>{{meal.name}}</h3>
-
-    <div class="mealDetails">
-    </div>
+    <h3 (click)="mealClicked()" >{{ meal.name }}</h3>
+    <div *ngIf="mealSelected">
+      <h4>Description: {{ meal.description }}</h4>
+      <h5>Calories: {{ meal.calories }}</h5>
     </div>
     `
   })
   export class MealComponent {
     public meal: Meal;
+    public mealSelected: boolean = false;
+    mealClicked(): void {
+      this.mealSelected = !this.mealSelected;
+    }
   }
