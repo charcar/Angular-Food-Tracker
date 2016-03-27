@@ -6,7 +6,7 @@ import { Meal } from './meal.model';
       inputs: ['meal'],
     template:`
     <h3 (click)="mealClicked()" >{{ meal.name }}</h3>
-    <div *ngIf="mealSelected">
+    <div class="descripCalorieInfo" *ngIf="mealSelected">
       <h4>Description: {{ meal.description }}</h4>
       <h5>Calories: {{ meal.calories }}</h5>
     </div>
