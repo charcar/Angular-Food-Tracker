@@ -31,7 +31,7 @@ $ gulp serve
 ```
 
 ### Technologies Used
-js, jquery, node, gulp, bower
+angular2, js, jquery, node, gulp, bower
 
 #### License
 
